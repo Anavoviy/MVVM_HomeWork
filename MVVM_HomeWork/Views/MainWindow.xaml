@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:MVVM_HomeWork"
         xmlns:vm="clr-namespace:MVVM_HomeWork.ViewModels"
         mc:Ignorable="d"
-        Title="MainWindow" Height="600" Width="900">
+        Title="MainWindow" Height="720" Width="1280">
     <Window.DataContext>
         <vm:MainWindowViewModel/>
     </Window.DataContext>
@@ -15,7 +15,20 @@
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="0.4*"/>
         </Grid.ColumnDefinitions>
-        <ListBox ItemsSource="{Binding Products}" DisplayMemberPath="Title"/>
+        <ListView ItemsSource="{Binding Products}">
+            <ListView.View>
+                <GridView>
+                    <GridView.Columns>
+                        <GridViewColumn Header="ID" DisplayMemberBinding="{Binding Id}"/>
+                        <GridViewColumn Header="Название" DisplayMemberBinding="{Binding Title}"/>
+                        <GridViewColumn Header="Категория" DisplayMemberBinding="{Binding IdCategoryNavigation.Title}"/>
+                        <GridViewColumn Header="Производитель" DisplayMemberBinding="{Binding IdProviderNavigation.Title}"/>
+                        <GridViewColumn Header="Стоимость одной единицы" DisplayMemberBinding="{Binding StringFormat={}{0}руб., Path=CostOfOne}"/>
+                        <GridViewColumn Header="Скидка" DisplayMemberBinding="{Binding StringFormat={}{0}%, Path=Discount}"/>
+                    </GridView.Columns>
+                </GridView>
+            </ListView.View>
+        </ListView>
         <StackPanel Grid.Column="1" Margin="15">
             <TextBlock Text="Фильтрация по категориям"/>
             <ComboBox ItemsSource="{Binding Categories}" DisplayMemberPath="Title" SelectedItem="{Binding SelectedCategory}"/>

@@ -1,5 +1,4 @@
 ﻿using DevExpress.Mvvm;
-using ExcelDataReader;
 using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
@@ -12,6 +11,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using MVVM_HomeWork.OtherFIles;
 using DevExpress.Mvvm.Native;
+using Microsoft.EntityFrameworkCore;
 
 namespace MVVM_HomeWork.ViewModels
 {
@@ -45,7 +45,8 @@ namespace MVVM_HomeWork.ViewModels
         // Метод фильтрации
         private void Search()
         {
-            Products = DB.instance.Products.Where(s => (this.SelectedProvider.Id == 0 || s.IdProvider == this.SelectedProvider.Id)
+            Products = DB.instance.Products.Include(s => s.IdCategoryNavigation).Include(s => s.IdProviderNavigation)
+                                           .Where(s => (this.SelectedProvider.Id == 0 || s.IdProvider == this.SelectedProvider.Id)
                                                     && (this.SelectedCategory.Id == 0 || s.IdCategory == this.SelectedCategory.Id)).ToObservableCollection();
         }
 
