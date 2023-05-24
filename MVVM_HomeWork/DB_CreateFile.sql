@@ -1,8 +1,8 @@
-﻿CREATE DATABASE homeworkdatabase;
+﻿CREATE DATABASE HomeDB;
 --
 -- Set default database
 --
-USE homeworkdatabase;
+USE HomeDB;
 
 --
 -- Create table `provider`

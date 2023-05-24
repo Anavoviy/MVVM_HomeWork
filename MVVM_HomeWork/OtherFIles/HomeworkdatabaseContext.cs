@@ -8,6 +8,8 @@ public partial class HomeworkdatabaseContext : DbContext
 {
     public HomeworkdatabaseContext()
     {
+        Database.EnsureDeleted();
+        Database.EnsureCreated();
     }
 
     public HomeworkdatabaseContext(DbContextOptions<HomeworkdatabaseContext> options)
@@ -23,7 +25,7 @@ public partial class HomeworkdatabaseContext : DbContext
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-        => optionsBuilder.UseMySql("server=localhost;user=root;password=Anavoviy_5002;database=homeworkdatabase", ServerVersion.Parse("8.0.31-mysql"));
+        => optionsBuilder.UseMySql("server=localhost;user=root;password=Anavoviy_5002;database=HomeDB", ServerVersion.Parse("8.0.31-mysql"));
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -75,6 +77,23 @@ public partial class HomeworkdatabaseContext : DbContext
         });
 
         OnModelCreatingPartial(modelBuilder);
+
+        modelBuilder.Entity<Category>().HasData(
+            new Category() { Id = 1, Title="литература"},
+            new Category() { Id = 2, Title = "техника" },
+            new Category() { Id = 3, Title = "спортивные товары" },
+            new Category() { Id = 4, Title = "продукты питания" },
+            new Category() { Id = 5, Title = "товары для школы" },
+            new Category() { Id = 6, Title = "бытовая техника" },
+            new Category() { Id = 7, Title = "товары для здоровья" },
+            new Category() { Id = 8, Title = "товары для красоты" },
+            new Category() { Id = 9, Title = "товары для кухни" },
+            new Category() { Id = 10, Title = "товары для творчества" },
+            new Category() { Id = 11, Title = "компьютеры и комплектующие" },
+            new Category() { Id = 12, Title = "кухонная техника" },
+            new Category() { Id = 13, Title = "аудиотехника" },
+            new Category() { Id = 14, Title = "товары для дома" }
+            );
     }
 
     partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
